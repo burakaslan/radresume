@@ -22,3 +22,71 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+.tools {
+  position: absolute;
+  left: 2rem;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 2.5px 2.5px 0 0;
+}
+
+.tools:hover {
+}
+
+.tools>div>i {
+  cursor: pointer;
+  color: white;
+}
+
+.settings-font>p {
+  display: none;
+}
+
+.settings-font:hover>p {
+  display: block;
+  position: absolute;
+  left: calc(100% + 1rem);
+  top: calc(-1rem - 2px);
+  background: #313131;
+  color: #ffffff;
+  padding: .5rem 1rem;
+  border-radius: 2.5px;
+}
+
+.settings-font>p:before {
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  content: "";
+  background: #313131;
+  transform: rotate(45deg);
+  left: -5px;
+  top: 13px;
+}
+
+@media (max-width: 1100px) {
+  .tools {
+    top: 0;
+    left: initial;
+    right: 2rem;
+    top: 2rem;
+  }
+  .settings-font>p, .settings-font:hover>p {
+    display: block;
+    position: absolute;
+    background: rgba(0, 0, 0, 0);
+    color: #ffffff;
+    right: 2rem;
+    left: initial;
+    top: calc(-1rem - 2px);
+    padding: .5rem 1rem;
+    border-radius: 2.5px;
+  }
+  .settings-font>p:before {
+    display: none;
+  }
+}

@@ -2,7 +2,6 @@
 * {
   font-family: 'Open Sans', sans-serif;
   color: #1a1818;
-  transition-delay: .15s;
 }
 
 
@@ -17,10 +16,13 @@ body {
   font-family: sans-serif;
   background-image: url(./bg.png);
   background-position: center center;
-  background-size: cover;
+  background-size: auto 125%;
   background-repeat: no-repeat;
   min-height: 100%;
   width: 100%;
+  bottom: 0;
+  top: 0;
+  position: relative;
   justify-content: center;
   display: flex;
 }
@@ -42,11 +44,33 @@ body {
   color: white;
 }
 
+.skill-print {
+  display: none;
+}
+
 @media print
 {
   .logo
   {
     display: none !important;
+  }
+  .add {
+    display: none !important;
+  }
+  .tools {
+    display: none !important;
+  }
+  .rc-slider, .rc-slider * {
+    display: none !important;
+  }
+  .skill-print {
+    display: block;
+  }
+  .experience, circle {
+    margin: 0;
+  }
+  circle {
+    display: none;
   }
 }
 
@@ -115,9 +139,14 @@ input:focus {
 .experience>div {
   margin-left: 1.5px;
   margin-top: 5px;
-  padding: 1rem;
+  padding: 0 1rem;
   width: calc(100% - 1rem);
   border-left: 1px solid #1a1818;
+}
+
+.profile {
+  font-size: 26px;
+  font-weight: 300;
 }
 
 .add {
@@ -125,10 +154,45 @@ input:focus {
   padding: 1rem 0rem;
   color: #6d6f72;
   cursor: pointer;
-  border: 1px dashed rgb(221, 221, 221);
+  display: flex;
+  margin: 2rem 0;
+  border-radius: 2.5px;
+  justify-content: center;
+  border: 2px dashed rgb(221, 221, 221);
 }
 
-.add:hover {
+.skill {
+  display: flex;
+  margin: 2rem 0;
+}
+
+.skillContainer {
+  margin-top: -1rem;
+}
+
+.skill>input {
+  margin: 0 0 !important;
+  padding-right: 1rem !important;
+}
+
+.skill>div, p {
+  align-self: center;
+}
+
+.slider {
+  color: white !important;
+}
+
+.add>p {
+  padding-left: 1rem;
+}
+
+.add>i, .add>p {
+  align-self: center;
+  color: #6d6f72;
+}
+
+.add:hover, .add:hover>i, .add:hover>p {
   color: #1a1818;
   background: #fdfdfd;
 }

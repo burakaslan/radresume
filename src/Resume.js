@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import Rcslider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 export default class Resume extends Component {
   constructor (props) {
     super(props);
     this.state = {
       experiences: 1,
+      skills: [{ value: 50, name: '' }],
     };
   }
 
@@ -13,6 +16,18 @@ export default class Resume extends Component {
     this.setState({
       experiences: experiences + 1,
     });
+  }
+
+  addSkills = () => {
+    const { skills } = this.state;
+    skills.push({ value: 50, name: '' });
+    this.setState({
+      skills,
+    });
+  }
+
+  tipFormat = (tip) => {
+    return <div className="slider">{this.mapSkillText(tip)}</div>
   }
 
   renderExperiences () {
@@ -34,9 +49,55 @@ export default class Resume extends Component {
     }
     return elm;
   }
+
+  setSkill = (index, val) => {
+    const { skills } = this.state;
+    skills[index].value = val;
+    this.setState({
+      skills,
+    });
+  }
+
+  mapSkillText = (tip) => {
+    let text;
+    if (tip < 25) {
+      text = 'Novice';
+    } else if (tip < 50) {
+      text = 'Proficient'
+    }
+    else if (tip < 75) {
+      text = 'Intermediate'
+    }
+    else {
+      text = 'Expert';
+    }
+    return text;
+  }
+
+  renderSkills() {
+    const elm = [];
+    const { skills } = this.state;
+    skills.forEach((skill, index) => {
+      elm.push(
+        <div className="skill">
+          <input value={skill.name} placeholder="UI/UX Design" />
+          <div className="skill-print">
+            {this.mapSkillText(skill.value)}
+          </div>
+          <Rcslider onAfterChange={(val) => this.setSkill(index, val)} tipFormatter={this.tipFormat} tipTransitionName="rc-slider-tooltip-zoom-down" min={0} defaultValue={skill.value} max={100} />
+        </div>
+      );
+    });
+    return elm;
+
+  }
+
   render () {
     return (
       <div className="A5">
+        <section className="sheet padding-10mm">
+          <input className="profile" placeholder="John Doe" />
+        </section>
         <section className="sheet padding-10mm uppercase">
           Biography
         </section>
@@ -53,10 +114,21 @@ export default class Resume extends Component {
           {this.renderExperiences()}
         </section>
         <section>
-        <div onClick={this.addExperiences} className="add">
-        Add Experience
+        <div onClick={this.addExperiences} className="add uppercase">
+          <i className="material-icons">playlist_add</i>
+          <p> Add Experience</p>
         </div>
         </section>
+        <section className="sheet padding-10mm uppercase">
+          Skills
+        </section>
+        <section className="skillContainer">
+          {this.renderSkills()}
+        </section>
+        <div onClick={this.addSkills} className="add uppercase">
+          <i className="material-icons">playlist_add</i>
+          <p> Add Skill</p>
+        </div>
       </div>
     );
   }
