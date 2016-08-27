@@ -12,6 +12,19 @@
   padding: 1rem 2rem;
 }
 
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-image: url(./bg.png);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100%;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+}
+
 .uppercase {
   text-transform: uppercase;
   font-weight: 600;
