@@ -11,13 +11,29 @@
   padding: 1rem 2rem;
 }
 
+input::placeholder {
+  color: #d4d4d4;
+}
+
+.version {
+  position: fixed;
+  bottom: 2rem;
+  text-align: left;
+  left: 2rem;
+  color: white;
+}
+
+a {
+  color: white;
+}
+
+section {
+  position: relative;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
-  background-image: url(./bg.png);
-  background-position: center center;
-  background-size: auto 125%;
-  background-repeat: no-repeat;
   min-height: 100%;
   width: 100%;
   bottom: 0;
@@ -25,6 +41,18 @@ body {
   position: relative;
   justify-content: center;
   display: flex;
+}
+
+.bg {
+  background-image: url(./bg.png);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100%;
+  width: 100%;
+  z-index: 0;
+  top: 0;
+  position: fixed;
 }
 
 .uppercase {
@@ -37,7 +65,7 @@ body {
 }
 
 .logo {
-  position: absolute;
+  position: fixed;
   top: 2rem;
   left: 2rem;
   height: 2rem;
@@ -50,11 +78,14 @@ body {
 
 @media print
 {
+  input::placeholder {
+    color: white !important;
+  }
   .logo
   {
     display: none !important;
   }
-  .add {
+  .add, .options {
     display: none !important;
   }
   .tools {
@@ -69,12 +100,21 @@ body {
   .experience, circle {
     margin: 0;
   }
+  .A5 {
+    padding: 0;
+  }
+  #root {
+    padding: 0;
+  }
   circle {
     display: none;
   }
 }
 
 @media (max-width: 1100px) {
+  .logo, .tools {
+    position: absolute;
+  }
   body {
     padding-top: 3rem;
   }
@@ -101,7 +141,6 @@ textarea:focus {
   background: white;
   font-size: 20px;
   height: 100%;
-  line-height: 40px;
 }
 
 hr {
@@ -113,6 +152,26 @@ hr {
   border-bottom: 1px solid rgb(221, 221, 221);
 }
 
+.options {
+  position: absolute;
+  right: 0;
+  display: none;
+  margin-top: -50px;
+  border-radius: 0 2.5px 2.5px 0;
+}
+.options>i {
+  color: #1a1818;
+  opacity: 0.75;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.options>i:hover {
+  opacity: 1;
+}
+
+
+
 circle {
   height: 5px;
   width: 5px;
@@ -123,6 +182,15 @@ circle {
 
 .experience {
   margin: 1rem 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 10rem;
+}
+
+.experience:hover>span {
+  display: block;
 }
 
 input {
@@ -137,14 +205,12 @@ input:focus {
   outline: 0;
 }
 .experience>div {
-  margin-left: 1.5px;
   margin-top: 5px;
-  padding: 0 1rem;
-  width: calc(100% - 1rem);
-  border-left: 1px solid #1a1818;
+  width: 100%;
 }
 
 .profile {
+  align-self: flex-start;
   font-size: 26px;
   font-weight: 300;
 }
@@ -180,6 +246,7 @@ input:focus {
 }
 
 .slider {
+  background: black;
   color: white !important;
 }
 

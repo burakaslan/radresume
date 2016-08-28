@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { changeFont } from './redux/actions';
+import { connect } from 'react-redux';
 
 class Settings extends Component {
   render() {
     return (
       <div className="tools">
         <div className="settings-font">
-          <i className="material-icons ">font_download</i>
+          <i onClick={() => window.print()}className="material-icons">file_download</i>
+          <p className="uppercase">Download</p>
+        </div>
+        <div className="settings-font">
+          <i onClick={() => this.props.dispatch(changeFont())} className="material-icons ">font_download</i>
           <p className="uppercase">Font</p>
         </div>
       </div>
@@ -13,4 +19,4 @@ class Settings extends Component {
   }
 }
 
-export default Settings;
+export default connect()(Settings);

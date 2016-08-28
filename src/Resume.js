@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import Rcslider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { connect } from 'react-redux';
 
-export default class Resume extends Component {
+const DEFAULT_TEXT = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus turpis in blandit lacinia. Etiam fermentum facilisis est vitae maximus. Ut porttitor ex at ex varius, id lobortis velit convallis.';
+class Resume extends Component {
+  static propTypes: {
+    font: PropTypes.string,
+  }
+
   constructor (props) {
     super(props);
     this.state = {
-      experiences: 1,
+      experiences: [{ company: '', role: '', date: '', text: DEFAULT_TEXT }],
       skills: [{ value: 50, name: '' }],
+      swapping: false,
     };
   }
 
   addExperiences = () => {
     const { experiences } = this.state;
+    experiences.push({ company: '', role: '', date: '', text: DEFAULT_TEXT });
     this.setState({
-      experiences: experiences + 1,
+      experiences,
     });
   }
 
@@ -30,23 +38,32 @@ export default class Resume extends Component {
     return <div className="slider">{this.mapSkillText(tip)}</div>
   }
 
+  removeExperience = (i) => {
+    const { experiences } = this.state;
+    experiences.splice(i, 1);
+    this.setState({ experiences });
+  }
+
   renderExperiences () {
     const { experiences } = this.state;
     const elm = [];
-    for (let x = 0; x < experiences; x++) {
+    const style = { fontFamily: this.props.font };
+
+    experiences.forEach((exp, index) => {
       elm.push(
-        <div key={x} className="experience">
-          <circle />
+        <div key={index} className="experience">
           <div>
-            <input className="uppercase" placeholder="Company XYZ"/>
-            <input className="uppercase secondary" placeholder="UI/UX Design"/>
-            <textarea>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus turpis in blandit lacinia. Etiam fermentum facilisis est vitae maximus. Ut porttitor ex at ex varius, id lobortis velit convallis.
-            </textarea>
+            <input onChange={e => this.handleChange('company', e.target.value, index)} className="uppercase" value={exp.company} placeholder="Company XYZ"/>
+            <input onChange={e => this.handleChange('date', e.target.value, index)} className="uppercase secondary" value={exp.date} placeholder="January 2016"/>
+            <input onChange={e => this.handleChange('role', e.target.value, index)} className="uppercase secondary" value={exp.role} placeholder="UI/UX Design"/>
+            <textarea style={style} defaultValue={exp.text} />
           </div>
+          <span className="options">
+            <i onClick={() => this.removeExperience(index)} className="material-icons">delete</i>
+          </span>
         </div>
       );
-    }
+    });
     return elm;
   }
 
@@ -79,7 +96,7 @@ export default class Resume extends Component {
     const { skills } = this.state;
     skills.forEach((skill, index) => {
       elm.push(
-        <div className="skill">
+        <div key={index} className="skill">
           <input value={skill.name} placeholder="UI/UX Design" />
           <div className="skill-print">
             {this.mapSkillText(skill.value)}
@@ -93,18 +110,26 @@ export default class Resume extends Component {
   }
 
   render () {
+    const style = { fontFamily: this.props.font };
     return (
       <div className="A5">
         <section className="sheet padding-10mm">
-          <input className="profile" placeholder="John Doe" />
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              <input style={style} className="profile" placeholder="John Doe" />
+              <input style={style} placeholder="UI/UX Designer" />
+            </div>
+            <div>
+              <input style={style} className="right" placeholder="john@doe.com" />
+              <input style={style} className="right"  placeholder="555 - 555 - 5555" />
+            </div>
+          </div>
         </section>
         <section className="sheet padding-10mm uppercase">
           Biography
         </section>
         <section>
-        <textarea>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus turpis in blandit lacinia. Etiam fermentum facilisis est vitae maximus. Ut porttitor ex at ex varius, id lobortis velit convallis.
-        </textarea>
+        <textarea style={style} defaultValue={DEFAULT_TEXT} />
         </section>
         <hr></hr>
         <section className="sheet padding-10mm uppercase">
@@ -133,3 +158,11 @@ export default class Resume extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    font: state.font,
+  }
+}
+
+export default connect(mapStateToProps)(Resume);
