@@ -56,7 +56,7 @@ class Resume extends Component {
             <input onChange={e => this.handleChange('company', e.target.value, index)} className="uppercase" value={exp.company} placeholder="Company XYZ"/>
             <input onChange={e => this.handleChange('date', e.target.value, index)} className="uppercase secondary" value={exp.date} placeholder="January 2016"/>
             <input onChange={e => this.handleChange('role', e.target.value, index)} className="uppercase secondary" value={exp.role} placeholder="UI/UX Design"/>
-            <textarea style={style} defaultValue={exp.text} />
+            <textarea style={style} gdefaultValue={exp.text} />
           </div>
           <span className="options">
             <i onClick={() => this.removeExperience(index)} className="material-icons">delete</i>
